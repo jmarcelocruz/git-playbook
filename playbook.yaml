@@ -1,0 +1,12 @@
+- name: Git Server Playbook
+  hosts: localhost
+  tasks:
+  - name: Install Git packages
+    become: true
+    ansible.builtin.dnf:
+      name: git
+  - name: Create Git root directory under srv/
+    become: true
+    ansible.builtin.file:
+      path: /srv/git
+      state: directory
