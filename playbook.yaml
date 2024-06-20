@@ -16,6 +16,7 @@
       path: /srv/git
       owner: git
       group: git
+      mode: 0775
       state: directory
   - name: Install git-push-mirror to user git
     become: true
