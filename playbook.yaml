@@ -5,8 +5,15 @@
     become: true
     ansible.builtin.dnf:
       name: git
+  - name: Create git user & group
+    become: true
+    ansible.builtin.user:
+      user: git
+    register: git_user_info
   - name: Create Git root directory under srv/
     become: true
     ansible.builtin.file:
       path: /srv/git
+      owner: git
+      group: git
       state: directory
