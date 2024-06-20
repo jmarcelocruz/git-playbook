@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+remote=${@:$#}
+for repository in ${@:1:($# - 1)}; do
+    pushd ${repository}
+    git push --mirror ${remote}
+    popd
+done

@@ -17,3 +17,42 @@
       owner: git
       group: git
       state: directory
+  - name: Install git-push-mirror to user git
+    become: true
+    block:
+    - name: Create ~/.local/bin for user git
+      ansible.builtin.file:
+        path: "{{ git_user_info.home }}/.local/bin"
+        owner: git
+        group: git
+        state: directory
+    - name: Install git-push-mirror to user git
+      ansible.builtin.copy:
+        src: files/git-push-mirror
+        dest: "{{ git_user_info.home }}/.local/bin/git-push-mirror"
+        owner: git
+        group: git
+        mode: 0755
+  - name: Install SystemD units
+    become: true
+    block:
+    - name: Create SystemD unit directory for user git
+      ansible.builtin.file:
+        path: "{{ git_user_info.home }}/.config/systemd/user"
+        owner: git
+        group: git
+        state: directory
+    - name: Install SystemD timer
+      ansible.builtin.copy:
+        src: files/git-push-mirror.timer
+        dest: "{{ git_user_info.home }}/.config/systemd/user/git-push-mirror.timer"
+        owner: git
+        group: git
+        mode: 0644
+    - name: Install SystemD service
+      ansible.builtin.copy:
+        src: files/git-push-mirror.service
+        dest: "{{ git_user_info.home }}/.config/systemd/user/git-push-mirror.service"
+        owner: git
+        group: git
+        mode: 0644

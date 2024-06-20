@@ -1,0 +1,6 @@
+[Unit]
+Description=Mirror changes to remote git repository
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/git-push-mirror /srv/git/*.git downstream
